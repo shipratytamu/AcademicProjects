@@ -1,0 +1,83 @@
+
+
+var indexPage = {};
+
+$(window).load(function() 
+{  
+    
+      $("#tag1").click(function()
+      {   
+          alert("You have clicked me !");
+          indexPage.validationFunctions.getListData();        
+     })
+});
+
+
+
+indexPage.validationFunctions = (function () { 
+
+return { 
+
+ getListData: function () { 
+    try {
+       var executor;
+       var hostWebUrl = "https://accenture1603.sharepoint.com/sites/ClientAppDemo";
+       var scriptbase = "https://accenture1603.sharepoint.com/sites/ClientAppDemo/_layouts/15/";
+
+       $.getScript(scriptbase + "SP.js",
+        function () {
+        $.getScript(scriptbase + "SP.Runtime.js",
+            function () { 
+                $.getScript(scriptbase + "SP.RequestExecutor.js", 
+                   function() {
+                       ExecuteOrDelayUntilScriptLoaded(
+                        function () {
+    // Initialize the RequestExecutor with the app web URL.
+       executor = new SP.RequestExecutor(hostWebUrl);
+       executor.executeAsync(
+           {
+                   url:hostWebUrl + "/_api/web/lists/GetByTitle('TestList')/items?$select=city,Name",
+                   method: "GET",
+                   dataType: "script",
+                   headers: { "Accept": "application/json; odata=verbose","Content-Type": "application/json;odata=verbose" },
+                   success:   
+                 function (data) 
+                   {
+                      $("#ResultDiv").empty();
+                      var jsonObject = JSON.parse(data.body);
+                      //alert(JSON.stringify(jsonObject));
+                     
+                      for (var i = 0; i < jsonObject.d.results.length; i++) {
+                      var item = jsonObject.d.results[i];
+                      $("#ResultDiv").append(item.Name + "\t" + item.city + "<br/>");
+                     } 
+                    alert("success");
+                    return true;
+                  },
+                error: function (error)
+                 {
+                //$("#ResultDiv").empty().text(data.responseJSON.error);
+                alert(JSON.stringify(error));
+                return false;
+                }
+                }
+            );
+
+                    },"SP.js");
+                   }
+                );
+            }
+        );
+    }
+       );
+
+       //SP.SOD.executeOrDelayUntilScriptLoaded(func, depScriptFileName);
+  
+    }
+    catch(error){
+        alert(error.message);
+  }            
+        }
+}
+
+}(jQuery));

@@ -1,0 +1,5 @@
+C:\Data\JasmineTestSPList\JasmineTestSPList\bin\Debug\JasmineTestSPList.dll
+C:\Data\JasmineTestSPList\JasmineTestSPList\bin\Debug\JasmineTestSPList.pdb
+C:\Data\JasmineTestSPList\JasmineTestSPList\obj\Debug\JasmineTestSPList.csprojResolveAssemblyReference.cache
+C:\Data\JasmineTestSPList\JasmineTestSPList\obj\Debug\JasmineTestSPList.dll
+C:\Data\JasmineTestSPList\JasmineTestSPList\obj\Debug\JasmineTestSPList.pdb
